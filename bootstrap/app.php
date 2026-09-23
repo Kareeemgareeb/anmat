@@ -18,3 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
+
+// Auto-detect public_html on cPanel shared hosting
+if (is_dir(dirname(__DIR__) . '/../public_html')) {
+    $app->usePublicPath(realpath(dirname(__DIR__) . '/../public_html'));
+}
+
+return $app;

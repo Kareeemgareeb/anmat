@@ -12,8 +12,96 @@ use App\Models\Project;
 use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+
+Route::get('/server-init', function () {
+    try {
+        $output = '';
+        try {
+            Artisan::call('storage:link');
+            $output .= "<b>Storage Link:</b> " . Artisan::output() . "<br>";
+        } catch (\Throwable $e) {
+            $output .= "<b>Storage Link:</b> " . $e->getMessage() . "<br>";
+        }
+
+        Artisan::call('config:clear');
+        $output .= "<b>Config Clear:</b> " . Artisan::output() . "<br>";
+
+        Artisan::call('cache:clear');
+        $output .= "<b>Cache Clear:</b> " . Artisan::output() . "<br>";
+
+        Artisan::call('view:clear');
+        $output .= "<b>View Clear:</b> " . Artisan::output() . "<br>";
+
+        return "<div style='font-family:sans-serif;padding:30px;line-height:1.8;direction:ltr;'>
+            <h2 style='color:#16a34a;'>✅ Server Setup & Cache Clear Completed Successfully!</h2>
+            <div style='background:#f1f5f9;padding:15px;border-radius:8px;font-family:monospace;margin:15px 0;'>{$output}</div>
+            <p>
+                <a href='/' style='display:inline-block;padding:10px 20px;background:#0f172a;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;margin-right:10px;'>Go to Website &rarr;</a>
+                <a href='/artisan-optimize' style='display:inline-block;padding:10px 20px;background:#2563eb;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;'>Run Artisan Optimize &rarr;</a>
+            </p>
+        </div>";
+    } catch (\Throwable $e) {
+        return "<div style='font-family:sans-serif;padding:30px;color:#dc2626;direction:ltr;'>
+            <h2>❌ Initialization Error</h2>
+            <pre style='background:#fee2e2;padding:15px;border-radius:8px;'>" . htmlspecialchars($e->getMessage()) . "</pre>
+        </div>";
+    }
+});
+
+// Run Artisan Optimize
+Route::get('/artisan-optimize', function () {
+    try {
+        $output = '';
+
+        Artisan::call('config:cache');
+        $output .= "<b>Config:</b> " . Artisan::output() . "<br>";
+
+        Artisan::call('route:cache');
+        $output .= "<b>Routes:</b> " . Artisan::output() . "<br>";
+
+        Artisan::call('view:clear');
+        $output .= "<b>Views:</b> " . Artisan::output() . "<br>";
+
+        return "<div style='font-family:sans-serif;padding:30px;line-height:1.8;direction:ltr;'>
+            <h2 style='color:#16a34a;'>⚡ Application Optimized Successfully!</h2>
+            <div style='background:#f1f5f9;padding:15px;border-radius:8px;font-family:monospace;margin:15px 0;'>{$output}</div>
+            <p>
+                <a href='/' style='display:inline-block;padding:10px 20px;background:#0f172a;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;margin-right:10px;'>Go to Website &rarr;</a>
+                <a href='/artisan-optimize-clear' style='display:inline-block;padding:10px 20px;background:#dc2626;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;'>Clear Optimization &rarr;</a>
+            </p>
+        </div>";
+    } catch (\Throwable $e) {
+        return "<div style='font-family:sans-serif;padding:30px;color:#dc2626;direction:ltr;'>
+            <h2>❌ Optimization Error</h2>
+            <pre style='background:#fee2e2;padding:15px;border-radius:8px;'>" . htmlspecialchars($e->getMessage()) . "</pre>
+        </div>";
+    }
+});
+
+// Run Artisan Optimize Clear
+Route::get('/artisan-optimize-clear', function () {
+    try {
+        Artisan::call('optimize:clear');
+        $output = nl2br(Artisan::output());
+
+        return "<div style='font-family:sans-serif;padding:30px;line-height:1.8;direction:ltr;'>
+            <h2 style='color:#16a34a;'>🧹 Optimization Cache Cleared!</h2>
+            <div style='background:#f1f5f9;padding:15px;border-radius:8px;font-family:monospace;margin:15px 0;'>{$output}</div>
+            <p>
+                <a href='/' style='display:inline-block;padding:10px 20px;background:#0f172a;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;margin-right:10px;'>Go to Website &rarr;</a>
+                <a href='/artisan-optimize' style='display:inline-block;padding:10px 20px;background:#2563eb;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;'>Re-Optimize &rarr;</a>
+            </p>
+        </div>";
+    } catch (\Throwable $e) {
+        return "<div style='font-family:sans-serif;padding:30px;color:#dc2626;direction:ltr;'>
+            <h2>❌ Clear Error</h2>
+            <pre style='background:#fee2e2;padding:15px;border-radius:8px;'>" . htmlspecialchars($e->getMessage()) . "</pre>
+        </div>";
+    }
+});
 
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'ar'])) {
@@ -64,7 +152,7 @@ Route::post('/contact', function (Request $request) {
 
     Inquiry::create($data);
 
-    $msg = app()->getLocale() == 'ar' 
+    $msg = app()->getLocale() == 'ar'
         ? 'شكراً لتواصلك مع أنماط للأعمال والاستشارات الهندسية. تم استلام رسالتك وسيتواصل معك فريقنا الهندسي في أقرب وقت.'
         : 'Thank you for reaching out to ANMAT Engineering Works & Consultancy. Your inquiry has been received and our engineering team will get in touch shortly.';
 
@@ -118,4 +206,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
