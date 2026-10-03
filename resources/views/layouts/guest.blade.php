@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'ANMAT Portal') }} - {{ __('Log in') }}</title>
+        <title>{{ app()->getLocale() == 'ar' ? 'تسجيل الدخول - أنماط للأعمال والاستشارات الهندسية' : config('app.name', 'ANMAT Engineering') . ' - ' . __('Log in') }}</title>
+        <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-light.jpg') }}">
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,16 +37,16 @@
             }
         </style>
     </head>
-    <body class="font-sans text-slate-100 antialiased bg-slate-950 min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 p-4">
+    <body class="font-sans text-slate-100 antialiased bg-slate-50 dark:bg-slate-950 min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 p-4">
         <div class="mb-6 text-center">
             <a href="/" class="inline-block transition hover:scale-105">
                 <img src="/images/logo-dark.png" alt="ANMAT" class="h-16 w-auto mx-auto drop-shadow-lg" />
             </a>
-            <h2 class="text-xl font-bold text-white mt-3 tracking-wide">بوابة الإدارة | ANMAT Admin</h2>
-            <p class="text-xs text-slate-400 mt-1">أنماط للأعمال والاستشارات الهندسية</p>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-3 tracking-wide">بوابة الإدارة | ANMAT Admin</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">أنماط للأعمال والاستشارات الهندسية</p>
         </div>
 
-        <div class="w-full sm:max-w-md px-8 py-8 bg-slate-900 border border-slate-800 shadow-2xl rounded-2xl">
+        <div class="w-full sm:max-w-md px-8 py-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl rounded-2xl">
             {{ $slot }}
         </div>
 

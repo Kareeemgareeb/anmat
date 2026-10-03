@@ -1,26 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h2 class="font-extrabold text-2xl text-white tracking-tight flex items-center gap-3">
-                    <span class="p-2 rounded-lg bg-purple-500/20 text-purple-400">
+                <h2 class="font-extrabold text-xl sm:text-2xl text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+                    <span class="p-2 rounded-lg bg-purple-500/20 text-purple-500">
                         <i class="fa-solid fa-compass-drafting"></i>
                     </span>
-                    {{ __('Services Management') }} (إدارة الخدمات الهندسية)
+                    <span>{{ __('Services Management') }}</span>
                 </h2>
-                <p class="text-sm text-slate-400 mt-1">
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                     {{ __('Create, edit, and organize services displayed dynamically across the public website.') }}
                 </p>
             </div>
-            <a href="{{ route('admin.services.create') }}" class="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold rounded-lg shadow-lg shadow-purple-500/20 text-sm flex items-center gap-2">
+            <a href="{{ route('admin.services.create') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold rounded-lg shadow-md shadow-purple-500/20 text-sm transition">
                 <i class="fa-solid fa-plus"></i>
                 <span>{{ __('+ Add New Service') }}</span>
             </a>
         </div>
     </x-slot>
 
-    <div class="py-8">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="py-6 sm:py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
 
             @if(session('status'))
                 <div class="p-4 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center gap-3">
@@ -29,22 +29,22 @@
                 </div>
             @endif
 
-            <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
                 <table class="min-w-full divide-y divide-slate-800 text-sm">
-                    <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
+                    <thead class="bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400 uppercase text-xs">
                         <tr>
                             <th class="py-3.5 px-4 text-start font-bold">#</th>
                             <th class="py-3.5 px-4 text-start font-bold">{{ __('Icon') }}</th>
-                            <th class="py-3.5 px-4 text-start font-bold">{{ __('Service Title (Arabic / English)') }}</th>
+                            <th class="py-3.5 px-4 text-start font-bold">{{ __('Service Title') }}</th>
                             <th class="py-3.5 px-4 text-start font-bold">{{ __('Category') }}</th>
                             <th class="py-3.5 px-4 text-start font-bold">{{ __('Featured') }}</th>
                             <th class="py-3.5 px-4 text-start font-bold">{{ __('Order') }}</th>
                             <th class="py-3.5 px-4 text-center font-bold">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800 text-slate-200">
+                    <tbody class="divide-y divide-slate-800 text-slate-700 dark:text-slate-200">
                         @forelse($services as $service)
-                            <tr class="hover:bg-slate-800/40 transition">
+                            <tr class="hover:bg-slate-100 dark:bg-slate-800/40 transition">
                                 <td class="py-3.5 px-4 text-slate-500 text-xs font-mono">{{ $service->id }}</td>
                                 <td class="py-3.5 px-4">
                                     <div class="w-9 h-9 rounded-lg bg-purple-500/15 text-purple-400 flex items-center justify-center text-sm border border-purple-500/30">
@@ -52,10 +52,11 @@
                                     </div>
                                 </td>
                                 <td class="py-3.5 px-4">
-                                    <div class="font-bold text-white">{{ $service->getTranslation('title', 'ar') }}</div>
-                                    <div class="text-xs text-slate-400">{{ $service->getTranslation('title', 'en') }}</div>
+                                    <div class="font-bold text-slate-900 dark:text-white">
+                                        {{ $service->getTranslation('title', app()->getLocale()) ?: $service->title }}
+                                    </div>
                                 </td>
-                                <td class="py-3.5 px-4 text-xs text-slate-300">
+                                <td class="py-3.5 px-4 text-xs text-slate-600 dark:text-slate-300">
                                     {{ $service->getTranslation('category', app()->getLocale()) ?: '-' }}
                                 </td>
                                 <td class="py-3.5 px-4">
@@ -67,7 +68,7 @@
                                         <span class="text-[11px] text-slate-500">{{ __('Standard') }}</span>
                                     @endif
                                 </td>
-                                <td class="py-3.5 px-4 text-xs font-mono text-slate-400">
+                                <td class="py-3.5 px-4 text-xs font-mono text-slate-500 dark:text-slate-400">
                                     {{ $service->order }}
                                 </td>
                                 <td class="py-3.5 px-4 text-center">

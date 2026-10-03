@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h2 class="font-extrabold text-2xl text-white tracking-tight flex items-center gap-3">
-                    <span class="p-2 rounded-lg bg-emerald-500/20 text-emerald-400">
+                <h2 class="font-extrabold text-xl sm:text-2xl text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+                    <span class="p-2 rounded-lg bg-emerald-500/20 text-emerald-500">
                         <i class="fa-solid fa-inbox"></i>
                     </span>
-                    {{ __('Client Inquiries & Consultation Requests') }} (استفسارات وطلبات العملاء)
+                    <span>{{ __('Inquiries Management') }}</span>
                 </h2>
-                <p class="text-sm text-slate-400 mt-1">
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                     {{ __('Manage messages and consultation requests submitted through the public website.') }}
                 </p>
             </div>
@@ -27,31 +27,31 @@
 
             <!-- Quick Status Filters -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="{{ route('admin.inquiries.index') }}" class="p-4 rounded-xl bg-slate-900 border {{ !request('status') ? 'border-amber-500/60 bg-slate-800' : 'border-slate-800' }} hover:border-slate-700 transition">
-                    <span class="text-xs text-slate-400 font-bold block">{{ __('All Inquiries (الكل)') }}</span>
-                    <span class="text-2xl font-black text-white mt-1 block">{{ $counts['total'] }}</span>
+                <a href="{{ route('admin.inquiries.index') }}" class="p-4 rounded-xl bg-white dark:bg-slate-900 border {{ !request('status') ? 'border-amber-500/60 bg-slate-100 dark:bg-slate-800' : 'border-slate-200 dark:border-slate-800' }} hover:border-slate-300 dark:border-slate-700 transition">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block">{{ __('All Inquiries') }}</span>
+                    <span class="text-2xl font-black text-slate-900 dark:text-white mt-1 block">{{ $counts['total'] }}</span>
                 </a>
 
-                <a href="{{ route('admin.inquiries.index', ['status' => 'new']) }}" class="p-4 rounded-xl bg-slate-900 border {{ request('status') == 'new' ? 'border-amber-500/60 bg-slate-800' : 'border-slate-800' }} hover:border-slate-700 transition">
-                    <span class="text-xs text-amber-400 font-bold block">{{ __('New Messages (جديد)') }}</span>
+                <a href="{{ route('admin.inquiries.index', ['status' => 'new']) }}" class="p-4 rounded-xl bg-white dark:bg-slate-900 border {{ request('status') == 'new' ? 'border-amber-500/60 bg-slate-100 dark:bg-slate-800' : 'border-slate-200 dark:border-slate-800' }} hover:border-slate-300 dark:border-slate-700 transition">
+                    <span class="text-xs text-amber-400 font-bold block">{{ __('New Messages') }}</span>
                     <span class="text-2xl font-black text-amber-400 mt-1 block">{{ $counts['new'] }}</span>
                 </a>
 
-                <a href="{{ route('admin.inquiries.index', ['status' => 'contacted']) }}" class="p-4 rounded-xl bg-slate-900 border {{ request('status') == 'contacted' ? 'border-blue-500/60 bg-slate-800' : 'border-slate-800' }} hover:border-slate-700 transition">
-                    <span class="text-xs text-blue-400 font-bold block">{{ __('Contacted (تم التواصل)') }}</span>
+                <a href="{{ route('admin.inquiries.index', ['status' => 'contacted']) }}" class="p-4 rounded-xl bg-white dark:bg-slate-900 border {{ request('status') == 'contacted' ? 'border-blue-500/60 bg-slate-100 dark:bg-slate-800' : 'border-slate-200 dark:border-slate-800' }} hover:border-slate-300 dark:border-slate-700 transition">
+                    <span class="text-xs text-blue-400 font-bold block">{{ __('Contacted') }}</span>
                     <span class="text-2xl font-black text-blue-400 mt-1 block">{{ $counts['contacted'] }}</span>
                 </a>
 
-                <a href="{{ route('admin.inquiries.index', ['status' => 'closed']) }}" class="p-4 rounded-xl bg-slate-900 border {{ request('status') == 'closed' ? 'border-emerald-500/60 bg-slate-800' : 'border-slate-800' }} hover:border-slate-700 transition">
-                    <span class="text-xs text-emerald-400 font-bold block">{{ __('Closed (مكتمل ومغلق)') }}</span>
+                <a href="{{ route('admin.inquiries.index', ['status' => 'closed']) }}" class="p-4 rounded-xl bg-white dark:bg-slate-900 border {{ request('status') == 'closed' ? 'border-emerald-500/60 bg-slate-100 dark:bg-slate-800' : 'border-slate-200 dark:border-slate-800' }} hover:border-slate-300 dark:border-slate-700 transition">
+                    <span class="text-xs text-emerald-400 font-bold block">{{ __('Closed') }}</span>
                     <span class="text-2xl font-black text-emerald-400 mt-1 block">{{ $counts['closed'] }}</span>
                 </a>
             </div>
 
             <!-- Inquiries Table -->
-            <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
                 <table class="min-w-full divide-y divide-slate-800 text-sm">
-                    <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
+                    <thead class="bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400 uppercase text-xs">
                         <tr>
                             <th class="py-3.5 px-4 text-start font-bold">#</th>
                             <th class="py-3.5 px-4 text-start font-bold">{{ __('Sender Name') }}</th>
@@ -63,13 +63,13 @@
                             <th class="py-3.5 px-4 text-center font-bold">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800 text-slate-200">
+                    <tbody class="divide-y divide-slate-800 text-slate-700 dark:text-slate-200">
                         @forelse($inquiries as $inq)
-                            <tr class="hover:bg-slate-800/40 transition">
+                            <tr class="hover:bg-slate-100 dark:bg-slate-800/40 transition">
                                 <td class="py-3.5 px-4 text-slate-500 text-xs font-mono">{{ $inq->id }}</td>
-                                <td class="py-3.5 px-4 font-bold text-white whitespace-nowrap">{{ $inq->name }}</td>
+                                <td class="py-3.5 px-4 font-bold text-slate-900 dark:text-white whitespace-nowrap">{{ $inq->name }}</td>
                                 <td class="py-3.5 px-4 text-xs whitespace-nowrap">
-                                    <div class="text-slate-300">{{ $inq->email }}</div>
+                                    <div class="text-slate-600 dark:text-slate-300">{{ $inq->email }}</div>
                                     @if($inq->phone)
                                         <div class="text-amber-400 font-mono mt-0.5" dir="ltr">{{ $inq->phone }}</div>
                                     @endif
@@ -79,11 +79,11 @@
                                 </td>
                                 <td class="py-3.5 px-4">
                                     @if($inq->subject)
-                                        <div class="font-semibold text-white text-xs mb-0.5">{{ $inq->subject }}</div>
+                                        <div class="font-semibold text-slate-900 dark:text-white text-xs mb-0.5">{{ $inq->subject }}</div>
                                     @endif
-                                    <div class="text-xs text-slate-400 line-clamp-1">{{ $inq->message }}</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">{{ $inq->message }}</div>
                                 </td>
-                                <td class="py-3.5 px-4 whitespace-nowrap text-xs text-slate-400">
+                                <td class="py-3.5 px-4 whitespace-nowrap text-xs text-slate-500 dark:text-slate-400">
                                     {{ $inq->created_at->diffForHumans() }}
                                 </td>
                                 <td class="py-3.5 px-4 whitespace-nowrap">
@@ -91,7 +91,7 @@
                                 </td>
                                 <td class="py-3.5 px-4 text-center whitespace-nowrap">
                                     <div class="flex items-center justify-center gap-2">
-                                        <a href="{{ route('admin.inquiries.show', $inq->id) }}" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-bold" title="{{ __('View Details') }}">
+                                        <a href="{{ route('admin.inquiries.show', $inq->id) }}" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:text-white text-xs font-bold" title="{{ __('View Details') }}">
                                             {{ __('Open') }}
                                         </a>
                                         <form action="{{ route('admin.inquiries.destroy', $inq->id) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('Delete this inquiry message?') }}');">
@@ -116,7 +116,7 @@
             </div>
 
             @if($inquiries->hasPages())
-                <div class="p-4 border-t border-slate-800">
+                <div class="p-4 border-t border-slate-200 dark:border-slate-800">
                     {{ $inquiries->links() }}
                 </div>
             @endif

@@ -7,28 +7,28 @@
 
         <!-- Email Address -->
         <div>
-            <label for="email" class="block text-sm font-semibold text-slate-300 mb-1">
+            <label for="email" class="block text-sm font-semibold text-slate-600 dark:text-slate-300 mb-1">
                 {{ app()->getLocale() == 'ar' ? 'البريد الإلكتروني' : 'Email Address' }}
             </label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" dir="ltr"
-                   class="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-sm text-left">
+                   class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-sm text-left">
             <x-input-error :messages="$errors->get('email')" class="mt-2 text-rose-400 text-xs" />
         </div>
 
         <!-- Password -->
         <div>
-            <label for="password" class="block text-sm font-semibold text-slate-300 mb-1">
+            <label for="password" class="block text-sm font-semibold text-slate-600 dark:text-slate-300 mb-1">
                 {{ app()->getLocale() == 'ar' ? 'كلمة المرور' : 'Password' }}
             </label>
             <input id="password" type="password" name="password" required autocomplete="current-password" dir="ltr"
-                   class="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-sm text-left">
+                   class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-sm text-left">
             <x-input-error :messages="$errors->get('password')" class="mt-2 text-rose-400 text-xs" />
         </div>
 
         <!-- Remember Me -->
-        <div class="flex items-center justify-between text-xs text-slate-400">
+        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <label for="remember_me" class="inline-flex items-center cursor-pointer select-none">
-                <input id="remember_me" type="checkbox" class="rounded bg-slate-950 border-slate-700 text-amber-500 shadow-sm focus:ring-amber-500 focus:ring-offset-slate-900" name="remember">
+                <input id="remember_me" type="checkbox" class="rounded bg-slate-50 dark:bg-slate-950 border-slate-300 dark:border-slate-700 text-amber-500 shadow-sm focus:ring-amber-500 focus:ring-offset-slate-900" name="remember">
                 <span class="ms-2">{{ app()->getLocale() == 'ar' ? 'تذكر تسجيل دخولي' : 'Remember me' }}</span>
             </label>
 

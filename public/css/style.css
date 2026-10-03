@@ -967,6 +967,34 @@ html[dir="rtl"] .project-badge-status {
     outline: none;
 }
 
+.form-select, select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-repeat: no-repeat !important;
+    cursor: pointer;
+}
+
+[dir="ltr"] .form-select,
+[dir="ltr"] select,
+html[dir="ltr"] select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23C6923E' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 0.85rem center !important;
+    background-size: 1.1em 1.1em !important;
+    padding-right: 2.25rem !important;
+    padding-left: 1rem !important;
+}
+
+[dir="rtl"] .form-select,
+[dir="rtl"] select,
+html[dir="rtl"] select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23C6923E' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: left 0.85rem center !important;
+    background-size: 1.1em 1.1em !important;
+    padding-left: 2.25rem !important;
+    padding-right: 1rem !important;
+}
+
 /* ===================================================================
    Footer (Always High Contrast with Crisp Text in Dark & Light Modes)
    =================================================================== */

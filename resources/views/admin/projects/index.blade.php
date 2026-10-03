@@ -1,26 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h2 class="font-extrabold text-2xl text-white tracking-tight flex items-center gap-3">
-                    <span class="p-2 rounded-lg bg-blue-500/20 text-blue-400">
+                <h2 class="font-extrabold text-xl sm:text-2xl text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+                    <span class="p-2 rounded-lg bg-blue-500/20 text-blue-500">
                         <i class="fa-solid fa-city"></i>
                     </span>
-                    {{ __('Projects Portfolio Management') }} (إدارة المشاريع وسجل الأعمال)
+                    <span>{{ __('Projects Portfolio Management') }}</span>
                 </h2>
-                <p class="text-sm text-slate-400 mt-1">
+                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                     {{ __('Showcase landmark engineering and surveying achievements on your portfolio.') }}
                 </p>
             </div>
-            <a href="{{ route('admin.projects.create') }}" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold rounded-lg shadow-lg shadow-blue-500/20 text-sm flex items-center gap-2">
+            <a href="{{ route('admin.projects.create') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-lg shadow-md shadow-blue-500/20 text-sm transition">
                 <i class="fa-solid fa-plus"></i>
                 <span>{{ __('+ Add New Project') }}</span>
             </a>
         </div>
     </x-slot>
 
-    <div class="py-8">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="py-6 sm:py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
 
             @if(session('status'))
                 <div class="p-4 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center gap-3">
@@ -29,9 +29,9 @@
                 </div>
             @endif
 
-            <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
                 <table class="min-w-full divide-y divide-slate-800 text-sm">
-                    <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
+                    <thead class="bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400 uppercase text-xs">
                         <tr>
                             <th class="py-3.5 px-4 text-start font-bold">#</th>
                             <th class="py-3.5 px-4 text-start font-bold">{{ __('Project') }}</th>
@@ -42,13 +42,13 @@
                             <th class="py-3.5 px-4 text-center font-bold">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800 text-slate-200">
+                    <tbody class="divide-y divide-slate-800 text-slate-700 dark:text-slate-200">
                         @forelse($projects as $project)
-                            <tr class="hover:bg-slate-800/40 transition">
+                            <tr class="hover:bg-slate-100 dark:bg-slate-800/40 transition">
                                 <td class="py-3.5 px-4 text-slate-500 text-xs font-mono">{{ $project->id }}</td>
                                 <td class="py-3.5 px-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-12 h-12 rounded-lg bg-slate-950 border border-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center">
+                                        <div class="w-12 h-12 rounded-lg bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center">
                                             @if($project->image_path)
                                                 <img src="{{ $project->image_url }}" class="w-full h-full object-cover">
                                             @else
@@ -56,15 +56,15 @@
                                             @endif
                                         </div>
                                         <div>
-                                            <div class="font-bold text-white">{{ $project->getTranslation('title', 'ar') }}</div>
-                                            <div class="text-xs text-amber-400 font-semibold">{{ $project->getTranslation('category', app()->getLocale()) ?: '-' }}</div>
+                                            <div class="font-bold text-slate-900 dark:text-white">{{ $project->getTranslation('title', app()->getLocale()) ?: $project->title }}</div>
+                                            <div class="text-xs text-amber-500 font-semibold">{{ $project->getTranslation('category', app()->getLocale()) ?: '-' }}</div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="py-3.5 px-4 text-xs text-slate-300">
+                                <td class="py-3.5 px-4 text-xs text-slate-600 dark:text-slate-300">
                                     {{ $project->getTranslation('client', app()->getLocale()) ?: '-' }}
                                 </td>
-                                <td class="py-3.5 px-4 text-xs text-slate-300">
+                                <td class="py-3.5 px-4 text-xs text-slate-600 dark:text-slate-300">
                                     {{ $project->getTranslation('location', app()->getLocale()) ?: '-' }}
                                 </td>
                                 <td class="py-3.5 px-4">
@@ -74,9 +74,9 @@
                                 </td>
                                 <td class="py-3.5 px-4">
                                     @if($project->is_featured)
-                                        <span class="text-[11px] font-bold text-amber-400"><i class="fa-solid fa-star"></i> Featured</span>
+                                        <span class="text-[11px] font-bold text-amber-500"><i class="fa-solid fa-star"></i> {{ __('Featured') }}</span>
                                     @else
-                                        <span class="text-[11px] text-slate-500">Standard</span>
+                                        <span class="text-[11px] text-slate-500">{{ __('Standard') }}</span>
                                     @endif
                                 </td>
                                 <td class="py-3.5 px-4 text-center">

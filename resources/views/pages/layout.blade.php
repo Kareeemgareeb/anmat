@@ -21,8 +21,8 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ time() }}">
 
     <script>
-        // Initialize Theme from LocalStorage or default to dark luxury theme
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        // Initialize Theme from LocalStorage or default to light theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 </head>
