@@ -10,8 +10,8 @@
             <label for="email" class="block text-sm font-semibold text-slate-300 mb-1">
                 {{ app()->getLocale() == 'ar' ? 'البريد الإلكتروني' : 'Email Address' }}
             </label>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username"
-                   class="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-sm">
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" dir="ltr"
+                   class="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-sm text-left">
             <x-input-error :messages="$errors->get('email')" class="mt-2 text-rose-400 text-xs" />
         </div>
 
@@ -20,8 +20,8 @@
             <label for="password" class="block text-sm font-semibold text-slate-300 mb-1">
                 {{ app()->getLocale() == 'ar' ? 'كلمة المرور' : 'Password' }}
             </label>
-            <input id="password" type="password" name="password" required autocomplete="current-password"
-                   class="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-sm">
+            <input id="password" type="password" name="password" required autocomplete="current-password" dir="ltr"
+                   class="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-sm text-left">
             <x-input-error :messages="$errors->get('password')" class="mt-2 text-rose-400 text-xs" />
         </div>
 

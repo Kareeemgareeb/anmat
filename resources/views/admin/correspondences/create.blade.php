@@ -87,7 +87,7 @@
                             <label class="block text-xs font-bold text-slate-300 mb-1.5">
                                 {{ __('Issue Date * (تاريخ المعاملة)') }}
                             </label>
-                            <input type="date" name="date_issued" value="{{ old('date_issued', date('Y-m-d')) }}" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3.5 py-2.5 text-white text-sm focus:border-amber-400 outline-none">
+                            <input type="date" name="date_issued" value="{{ old('date_issued', date('Y-m-d')) }}" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3.5 py-2.5 text-white text-sm focus:border-amber-400 outline-none [color-scheme:dark] cursor-pointer" onclick="this.showPicker()">
                         </div>
 
                         <div>
