@@ -40,19 +40,30 @@
         <!-- Compiled Vite Assets (if available) -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        <!-- Flatpickr CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        
         <style>
             body { font-family: 'Tajawal', 'Outfit', sans-serif; }
             [dir="rtl"] { text-align: right; }
             [dir="ltr"] { text-align: left; }
         </style>
+        
+        <script>
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
     </head>
-    <body class="font-sans antialiased bg-slate-950 text-slate-100 min-h-screen flex flex-col">
-        <div class="min-h-screen bg-slate-950 flex-grow">
+    <body class="font-sans antialiased bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+        <div class="min-h-screen bg-slate-50 dark:bg-slate-950 flex-grow transition-colors duration-200">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-slate-900 border-b border-slate-800 shadow-sm">
+                <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
                     <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -64,5 +75,19 @@
                 {{ $slot }}
             </main>
         </div>
+        
+        <!-- Flatpickr JS -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script>
+            // Initialize Flatpickr for all elements with class .flatpickr-date
+            document.addEventListener('DOMContentLoaded', function() {
+                flatpickr('.flatpickr-date', {
+                    dateFormat: "Y-m-d",
+                    altInput: true,
+                    altFormat: "d/m/Y",
+                    allowInput: true
+                });
+            });
+        </script>
     </body>
 </html>
